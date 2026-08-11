@@ -55,10 +55,17 @@ date_default_timezone_set('Asia/Manila');
             if(!$this->session->user_login){
                 redirect(base_url());
             }
+            if($this->input->post('month')=="" && $this->input->post('year')==""){
+                $data['month'] = date('m');
+                $data['year'] = date('Y');
+            }else{
+                $data['month'] = $this->input->post('month');
+                $data['year'] = $this->input->post('year');
+            }
             $this->load->view('includes/header');            
             $this->load->view('includes/navbar');
             $this->load->view('includes/sidebar');
-            $this->load->view('pages/'.$page);                 
+            $this->load->view('pages/'.$page,$data);                 
             $this->load->view('includes/modal');
             $this->load->view('includes/footer'); 
         }
