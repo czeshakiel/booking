@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>e-Learning Website</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
     <meta name="author" content="Muhammad Usman">
@@ -34,8 +34,9 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- The fav icon -->
-    <link rel="shortcut icon" href="<?=base_url('design/img/favicon.ico');?>">
+   <title>KOILEE PICKLEBALL BOOKING SYSTEM</title>    
+   <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+   <link rel="shortcut icon" href="<?=base_url('design/users/koileelogo.jpg');?>">
 
 </head>
 

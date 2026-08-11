@@ -2,28 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>e-Learning Website</title>
+    <title>KOILEE PICKLEBALL BOOKING SYSTEM</title>    
     <link rel="stylesheet" href="<?=base_url('design/users/style.css');?>">
-   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-   <link rel="shortcut icon" href="<?=base_url('design/img/favicon.ico');?>">
+   <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+   <link rel="shortcut icon" href="<?=base_url('design/users/koileelogo.jpg');?>">
   </head>
   <body>
     <div class="bg-img">
       <div class="content">
         <header>Registration</header>
         <form action="<?=base_url('registration');?>" method="POST">          
+          
           <div class="field space">
             <span class="fa fa-user"></span>
-            <input type="text" required placeholder="Student ID" name="student_id" autocomplete="off">
-          </div>
+            <input type="text" required placeholder="Full Name" name="fullname" autocomplete="off">
+          </div> 
           <div class="field space">
             <span class="fa fa-user"></span>
-            <input type="text" required placeholder="Last Name" name="lastname" autocomplete="off">
-          </div>
-          <div class="field space">
-            <span class="fa fa-user"></span>
-            <input type="text" required placeholder="First Name" name="firstname" autocomplete="off">
-          </div>
+            <input type="text" required placeholder="Contact Number" name="contactno" autocomplete="off">
+          </div>        
           <div class="field space">
             <span class="fa fa-user"></span>
             <input type="text" required placeholder="Username" name="username" autocomplete="off">
