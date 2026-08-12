@@ -79,6 +79,19 @@
             }
         });
     });
+    function checkTimeExist() {
+        const container = document.querySelector('#myTimeForm');
+        const partialChecked = container.querySelectorAll('input[type="checkbox"]:checked').length;
+        if(partialChecked > 0) {
+            document.getElementById('btnSaveTime').disabled = false;
+        }else{
+            document.getElementById('btnSaveTime').disabled = true;
+        }
+    }    
+    $('.uploadPayment').on('click', function() {
+        var bookingId = $(this).data('id');
+        document.getElementById('booking_id').value = bookingId;
+    });
 </script>
 
 

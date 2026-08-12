@@ -12,7 +12,7 @@
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="<?=base_url('main');?>"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
                         </li>                        
-                        <li><a class="ajax-link" href="<?=base_url('student_lesson');?>"><i class="glyphicon glyphicon-book"></i><span> My Bookings</span></a>
+                        <li><a class="ajax-link" href="<?=base_url('my_bookings');?>"><i class="glyphicon glyphicon-book"></i><span> My Bookings</span></a>
                         </li>
                         <!-- <li><a class="ajax-link" href="<?=base_url('games_list');?>"><i class="glyphicon glyphicon-headphones"></i><span> Games</span></a>
                         </li>

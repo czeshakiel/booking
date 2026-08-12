@@ -84,3 +84,27 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="uploadPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="uploadpayment" action="<?=base_url('upload_payment');?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="booking_id" id="booking_id">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Upload Proof of Payment</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="payment_proof">Payment Proof</label>
+                    <input type="file" class="form-control" name="file" accept="image/*" required>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

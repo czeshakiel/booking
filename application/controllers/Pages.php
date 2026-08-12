@@ -84,7 +84,8 @@ date_default_timezone_set('Asia/Manila');
             $data['datearray'] = $date;
             $data['courts'] = $this->Booking_model->getAllCourts();
             $data['booking_times'] = array();      
-            $data['timesettings'] = $this->Booking_model->getAllBookingTime();    
+            $data['timesettings'] = $this->Booking_model->getAllBookingTime();   
+            $data['search'] = 0;
             $this->load->view('includes/header');            
             $this->load->view('includes/navbar');
             $this->load->view('includes/sidebar');
@@ -104,13 +105,84 @@ date_default_timezone_set('Asia/Manila');
             $data['datearray'] = $date;
             $data['courts'] = $this->Booking_model->getAllCourts();
             $data['booking_times'] = $this->Booking_model->getBookingTimesByCourt($this->input->post('court_id'),$date);          
-            $data['timesettings'] = $this->Booking_model->getAllBookingTime();    
+            $data['timesettings'] = $this->Booking_model->getAllBookingTime();
+            $data['search'] = 1;
+            $data['selected_court'] = $this->Booking_model->get_court($this->input->post('court_id'));
             $this->load->view('includes/header');            
             $this->load->view('includes/navbar');
             $this->load->view('includes/sidebar');
             $this->load->view('pages/'.$page,$data);                 
             $this->load->view('includes/modal');
             $this->load->view('includes/footer'); 
+        }
+        public function save_booking(){
+            $result = $this->Booking_model->save_booking();
+            if($result){
+                echo "<script>alert('Booking saved successfully.'); window.location.href='".base_url('my_bookings')."';</script>";
+            } else {
+                $this->session->set_flashdata('error', 'Failed to save booking.');
+                redirect(base_url('view_available/'.$this->input->post('datearray')));
+            }            
+        }
+        public function my_bookings(){
+            $page = "my_bookings";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            } 
+            if(!$this->session->user_login){
+                redirect(base_url());
+            }
+            $data['bookings'] = $this->Booking_model->getBookingsByUser($this->session->username);
+            $this->load->view('includes/header');            
+            $this->load->view('includes/navbar');
+            $this->load->view('includes/sidebar');
+            $this->load->view('pages/'.$page,$data);                 
+            $this->load->view('includes/modal');
+            $this->load->view('includes/footer'); 
+        }
+        public function upload_payment(){
+            $result = $this->Booking_model->upload_payment();
+            if($result){
+                $this->session->set_flashdata('success', 'Payment proof uploaded successfully.');                
+            } else {
+                $this->session->set_flashdata('error', 'Failed to upload payment proof.');                
+            }            
+            redirect(base_url('my_bookings'));
+        }
+        public function view_payment($booking_id){
+            $page = "view_payment";
+            if(!file_exists(APPPATH.'views/pages/'.$page.".php")){
+                show_404();
+            } 
+            // if(!$this->session->user_login){
+            //     redirect(base_url());
+            // }
+            $data['document'] = $this->Booking_model->getBookingById($booking_id);            
+            $this->load->view('pages/'.$page,$data);                             
+        }
+        public function cancel_bookings($booking_id){
+            $result = $this->Booking_model->cancel_booking($booking_id);
+            if($result){
+                $this->session->set_flashdata('success', 'Booking cancelled successfully.');                
+            } else {
+                $this->session->set_flashdata('error', 'Failed to cancel booking.');                
+            }
+            if($this->session->user_login){
+               redirect(base_url('my_bookings'));
+            }                   
+
+            if($this->session->admin_login){
+                redirect(base_url('manage_bookings'));
+            }
+        }
+        public function confirm_booking($booking_id){
+            $result = $this->Booking_model->confirm_booking($booking_id);
+            if($result){
+                $this->session->set_flashdata('success', 'Booking confirmed successfully.');                
+            } else {
+                $this->session->set_flashdata('error', 'Failed to confirm booking.');                
+            }
+            redirect(base_url('manage_bookings'));            
         }
         //===============================User Module=========================================
         //===============================Admin Module=========================================
@@ -247,6 +319,22 @@ date_default_timezone_set('Asia/Manila');
                 redirect(base_url('admin'));
             }            
             $data['courts'] = $this->Booking_model->getAllBookingTime();
+            $this->load->view('includes/header');            
+            $this->load->view('includes/admin/navbar');
+            $this->load->view('includes/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);                 
+            $this->load->view('includes/admin/modal');
+            $this->load->view('includes/footer'); 
+        }
+        public function manage_bookings(){
+            $page = "manage_bookings";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            } 
+            if(!$this->session->admin_login){
+                redirect(base_url('admin'));
+            }            
+            $data['bookings'] = $this->Booking_model->getAllBookings();
             $this->load->view('includes/header');            
             $this->load->view('includes/admin/navbar');
             $this->load->view('includes/admin/sidebar');

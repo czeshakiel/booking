@@ -2,7 +2,7 @@
 .button-checkbox {
     display: inline-block;
     padding: 12px 25px;
-    background: #eee;
+    background: #eeeeee;
     border: 2px solid #ccc;
     border-radius: 8px;
     cursor: pointer;
@@ -10,6 +10,7 @@
     font-weight: bold;
     transition: 0.2s;
     text-align: center;
+    width: 28vw;
 }
 
 .button-checkbox input {
@@ -31,7 +32,7 @@
             <a href="<?=base_url('main');?>">My Dashboard</a>
         </li>                
         <li>
-            View Available Court (<?=date('F d, Y', strtotime($datearray));?>)
+            View Available Court (<?=date('F d, Y, l', strtotime($datearray));?>)
         </li>
     </ul>
 </div>
@@ -50,10 +51,11 @@ if($this->session->flashdata('failed')){
                 <h2><i class="glyphicon glyphicon-calendar"></i> Schedule Details</h2>                
             </div>
             <div class="box-content"> 
-                <form name="viewavailable" action="<?=base_url('search_view_available');?>" method="post">               
+                <form name="viewavailable" action="<?=base_url('search_view_available');?>" method="post">    
+                    <input type="hidden" name="datearray" value="<?=$datearray;?>">         
                     <div class="form-group">                        
                         <label for="booking_date">Court</label>
-                        <select class="form-control" name="court_id" >
+                        <select class="form-control" name="court_id" required>
                             <option value="">Select Court</option>
                             <?php foreach($courts as $court): ?>
                                 <option value="<?= $court['id']; ?>"><?= $court['courtname']; ?></option>
@@ -64,15 +66,55 @@ if($this->session->flashdata('failed')){
                         <input type="submit" class="btn btn-primary" value="View Available Time" /> 
                     </div>
                 </form>
-                
-                <form name="checkavailable" action="<?=base_url('save_booking');?>" method="post">
+
+                <?php if($search==1){ ?>
+                <h3><?=$selected_court['courtname'];?></h3>
+                <form name="checkavailable" action="<?=base_url('save_booking');?>" method="post" id="myTimeForm">
+                    <input type="hidden" name="datearray" value="<?=$datearray;?>">
+                    <input type="hidden" name="court_id" value="<?=$selected_court['id'];?>">
                     <?php foreach($timesettings as $time): ?>
-                        <label class="button-checkbox">
-                            <input type="checkbox" name="court" value="<?=$time['time_id'];?>">
-                            <?=$time['time_description'];?><br>asdfsdf
+                        <?php 
+                        $status="";
+                        $bkcolor="";
+                        $remarks="Available";
+                        $bookcount=0;                        
+                        $booking=$this->Booking_model->getAllBookingsByDate($datearray,$selected_court['id']);
+                        if(count($booking)>0){
+                            foreach($booking as $row){                                
+                                $btime=explode(';',$row['book_time']);
+                                for($w=0;$w<sizeof($btime)-1;$w++){
+                                    if($time['time_id']==$btime[$w]){
+                                        $bookcount++;
+                                    }
+                                }
+                            }
+                        }
+                        if($bookcount>0){
+                            $status="disabled";
+                            $bkcolor="gray";
+                            $remarks="occupied";
+                        }
+                        if(date('w',strtotime($datearray))== 5 && ($time['time_id'] >= 10 && $time['time_id'] <= 15 )){
+                            $status="disabled";
+                            $bkcolor="gray";
+                            $remarks="Not Available";
+                        }else if(date('w',strtotime($datearray))== 6 && ($time['time_id'] >= 1 && $time['time_id'] <= 10 )){
+                            $status="disabled";
+                            $bkcolor="gray";
+                            $remarks="Not Available";
+                        }
+
+                        ?>
+                        <label class="button-checkbox" style="background-color: <?=$bkcolor;?>;">
+                            <input type="checkbox" name="time_check[]" value="<?=$time['time_id'];?>" <?=$status;?> id="time_check" onclick="checkTimeExist()">
+                            <?=$time['time_description'];?><br><?=$remarks;?>
                         </label>
                     <?php endforeach; ?>
+                    <div class="form-group">                        
+                        <input type="submit" class="btn btn-primary" value="Book Selected Time" id="btnSaveTime" disabled/>
+                    </div>
                 </form>
+                <?php } ?>
             </div>
         </div>
     </div>
