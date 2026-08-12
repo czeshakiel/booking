@@ -46,7 +46,7 @@ if($this->session->flashdata('failed')){
                     <!-- <div id="calendar"></div> --> 
                 <table class="table table-bordered" width="100%" style="table-layout: fixed;">
 
-                  <tr style="background-color: purple; color:white;">
+                  <tr style="background-color: #fe72bb; color:white;">
                     <td style="text-transform:uppercase;text-align:center; font-size:24px;">
                       <b><?=date('m',strtotime($datetime));?></b>
                     </td>
@@ -62,17 +62,17 @@ if($this->session->flashdata('failed')){
 
                       <td align="center" style="background-color:red; color:white;"><b>SUN</b></td>
 
-                      <td align="center" style="background-color:blue; color:white;"><b>MON</b></td>
+                      <td align="center" style="background-color:#ffca6a; color:white;"><b>MON</b></td>
 
-                      <td align="center" style="background-color:blue; color:white;"><b>TUE</b></td>
+                      <td align="center" style="background-color:#ffca6a; color:white;"><b>TUE</b></td>
 
-                      <td align="center" style="background-color:blue; color:white;"><b>WED</b></td>
+                      <td align="center" style="background-color:#ffca6a; color:white;"><b>WED</b></td>
 
-                      <td align="center" style="background-color:blue; color:white;"><b>THU</b></td>
+                      <td align="center" style="background-color:#ffca6a; color:white;"><b>THU</b></td>
 
-                      <td align="center" style="background-color:blue; color:white;"><b>FRI</b></td>
+                      <td align="center" style="background-color:#ffca6a; color:white;"><b>FRI</b></td>
 
-                      <td align="center" style="background-color:blue; color:white;"><b>SAT</b></td>
+                      <td align="center" style="background-color:#ffca6a; color:white;"><b>SAT</b></td>
 
                     </tr>
 
@@ -91,10 +91,10 @@ if($this->session->flashdata('failed')){
                                 
                              
                                 if($date < date('Y-m-d')){
-                                    echo "<td style='height:100px; background-color:red;' align='center'><b style='font-size:1.5vw;'>$i</b>";
+                                    echo "<td style='height:100px; background-color:#ff9796;' align='center'><b style='font-size:1.5vw;'>$i</b>";
                                 }else{
-                                    echo "<td style='height:100px; background-color:green;' align='center'><b style='font-size:1.5vw;'>$i</b>";
-                             echo "<p style='text-align:center;'><a href='".base_url('view_available/'.$date)."' style='width:1.5vw;'>View<a></p>";
+                                    echo "<td style='height:100px; background-color:#7fda5b;' align='center'><b style='font-size:1.5vw;'>$i</b>";
+                             echo "<a href='".base_url('view_available/'.$date)."' style='width:100%; height:100%; display:block; top:5px;'></a>";
                              $avail=0;
                             //  $rooms=$this->General_model->getRooms();
                             //  $avail=count($rooms);;
@@ -131,10 +131,10 @@ if($this->session->flashdata('failed')){
                     }else{                      
                                                 
                                 if($date < date('Y-m-d')){
-                                                            echo "<td style='height:100px; background-color:red;' align='center'><b style='font-size:1.5vw;'>$i</b>";
+                                                            echo "<td style='height:100px; background-color:#ff9796;' align='center'><b style='font-size:1.5vw;'>$i</b>";
                                 }else{
-                                    echo "<td style='height:100px; background-color:green;' align='center'><b style='font-size:1.5vw;'>$i</b>";
-                                    echo "<a href='".base_url('view_available/'.$date)."' style='width:100%; height:100%; display:block;'></a>";
+                                    echo "<td style='height:100px; background-color:#7fda5b;' align='center'><b style='font-size:1.5vw;'>$i</b>";
+                                    echo "<a href='".base_url('view_available/'.$date)."' style='width:100%; height:100%; display:block; top:5px;'></a>";
                             //  echo "<p style='text-align:center;'>View</p>";
                              echo "</a>";
                              $avail=0;
