@@ -10,7 +10,7 @@
             </button>            
             <a class="navbar-brand" href="<?=base_url('adminmain');?>"> 
                 <!-- <img alt="Charisma Logo" src="<?=base_url('design/img/logo20.png');?>" class="hidden-xs"/> -->
-                <span>e-Learning</span>
+                <span>Pickleball</span>
             </a>
 
             <!-- user dropdown starts -->
@@ -26,10 +26,10 @@
                 </ul>
             </div>
             <?php
-            $user=$this->Learning_model->getSingleUser($this->session->username);
+            //$user=$this->Learning_model->getSingleUser($this->session->username);
             ?>
-            <div class="btn-group pull-right theme-container animated tada">
+            <!-- <div class="btn-group pull-right theme-container animated tada">
                 <p>Login Date/Time: <?=date('m/d/Y',strtotime($user['date_login']));?> / <?=date('h:i A',strtotime($user['time_login']));?></p>
-            </div>
+            </div> -->
         </div>
     </div>

@@ -3,48 +3,44 @@
             <div>
     <ul class="breadcrumb">        
         <li>
-            <a href="<?=base_url('adminmain');?>">My Dashboard</a>
+            <a href="<?=base_url('adminmain');?>">Admin Dashboard</a>
         </li>
     </ul>
 </div>
 <div class=" row">
     <div class="col-md-3 col-sm-3 col-xs-6">
-        <a data-toggle="tooltip" title="<?=count($newstudent);?> new registered students." class="well top-block" href="#">
-            <i class="glyphicon glyphicon-user blue"></i>
-
-            <div>Registered Students</div>
-            <div><?=count($students);?></div>
-            <span class="notification"><?=count($newstudent);?></span>
+        <a data-toggle="tooltip" title="" class="well top-block" href="#">
+            <i class="glyphicon glyphicon-book blue"></i>
+            <div><?=count($totalbooking);?></div>
+            <div>Total Bookings</div>
+            
         </a>
     </div>
 
     <div class="col-md-3 col-sm-3 col-xs-6">
-        <a data-toggle="tooltip" title="<?=count($newlesson);?> new posted lessons." class="well top-block" href="#">
+        <a data-toggle="tooltip" title="" class="well top-block" href="#">
             <i class="glyphicon glyphicon-book green"></i>
-
-            <div>Lessons</div>
-            <div><?=count($lessons);?></div>
-            <span class="notification green"><?=count($newlesson);?></span>
+            <div><?=count($confirmedbooking);?></div>
+            <div>Confirmed Bookings</div>
+        
         </a>
     </div>
 
     <div class="col-md-3 col-sm-3 col-xs-6">
-        <a data-toggle="tooltip" title="<?=count($newassignment);?> posted assignment." class="well top-block" href="#">
-            <i class="glyphicon glyphicon-file yellow"></i>
-
-            <div>Assignments</div>
-            <div><?=count($assignments);?></div>
-            <span class="notification yellow"><?=count($newassignment);?></span>
+        <a data-toggle="tooltip" title="" class="well top-block" href="#">
+            <i class="glyphicon glyphicon-book yellow"></i>
+            <div><?=count($pendingbooking);?></div>
+            <div>Pending Bookings</div>
+            
         </a>
     </div>
 
     <div class="col-md-3 col-sm-3 col-xs-6">
-        <a data-toggle="tooltip" title="<?=count($newquizzes);?> new posted quizzes." class="well top-block" href="#">
-            <i class="glyphicon glyphicon-list-alt red"></i>
-
-            <div>Quizzes</div>
-            <div><?=count($quizzes);?></div>
-            <span class="notification red"><?=count($newquizzes);?></span>
+        <a data-toggle="tooltip" title="" class="well top-block" href="#">
+            <i class="glyphicon glyphicon-book red"></i>
+            <div><?=count($cancelledbooking);?></div>
+            <div>Cancelled Bookings</div>
+            
         </a>
     </div>
 </div>
@@ -53,19 +49,34 @@
     <div class="box col-md-12">
         <div class="box-inner">
             <div class="box-header well">
-                <h2><i class="glyphicon glyphicon-th-list"></i> Leaderboards</h2>
-
-                <!-- <div class="box-icon">
-                    <a href="#" class="btn btn-setting btn-round btn-default"><i
-                            class="glyphicon glyphicon-cog"></i></a>
-                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
-                            class="glyphicon glyphicon-chevron-up"></i></a>
-                    <a href="#" class="btn btn-close btn-round btn-default"><i
-                            class="glyphicon glyphicon-remove"></i></a>
-                </div> -->
+                <h2><i class="glyphicon glyphicon-th-list"></i> Todays Booking</h2>                
             </div>
             <div class="box-content">
-                
+                <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Full Name</th>
+                            <th>Contact No</th>
+                            <th>Court No.</th>
+                            <th>Time</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($todaysbooking as $booking): ?>
+                        <tr>
+                            <td><?= $booking['booking_id']; ?></td>
+                            <td><?= $booking['fullname']; ?></td>
+                            <td><?= $booking['contactno']; ?></td>
+                            <td><?= $booking['court_name']; ?></td>
+                            <td></td>
+                            <td><?= ucfirst($booking['status']); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
