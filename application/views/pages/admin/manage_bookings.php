@@ -52,12 +52,12 @@ if($this->session->flashdata('error')){
                              $querycourt=$this->Booking_model->get_court($item['court_id']);
 
                              if($a==$b){
-                                $query=$this->Booking_model->get_booking_time($a);
+                                $query=$this->Booking_model->get_book_time($a);
                                 $booktime=$query['time_description'];                                
                              }else{
                                 $first="";
                                 $last="";
-                                $query=$this->Booking_model->get_booking_time($a);
+                                $query=$this->Booking_model->get_book_time($a);
                                 if($query) {
                                     $qrb=explode(' - ',$query['time_description']);
                                     $bd=$query['time_description'];                                    
@@ -68,7 +68,7 @@ if($this->session->flashdata('error')){
                                     $booktime="";
                                 }
                                 
-                                $query=$this->Booking_model->get_booking_time($b);
+                                $query=$this->Booking_model->get_book_time($b);
                                 if($query) {
                                     $qre=explode(' - ',$query['time_description']);
                                     $be=$query['time_description'];
@@ -86,7 +86,7 @@ if($this->session->flashdata('error')){
                              }
                              $totalamount=0;
                              for($i=0;$i<$c;$i++){                                
-                                $query=$this->Booking_model->get_booking_time($btime[$i]);
+                                $query=$this->Booking_model->get_book_time($btime[$i]);
                                 if($query['time_shift']=='AM'){
                                     $rate=$querycourt['court_rate_am'];
                                 }else{

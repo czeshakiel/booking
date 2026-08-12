@@ -101,6 +101,13 @@
             $query=$this->db->get('timesettings');
             return $query->row_array();
         }
+
+        public function get_book_time($id){
+            $this->db->where('time_id',$id);
+            $query=$this->db->get('timesettings');
+            return $query->row_array();
+        }
+
         public function getAllBookingTime(){
             $this->db->order_by('time_id', 'ASC');
             $query=$this->db->get('timesettings');
