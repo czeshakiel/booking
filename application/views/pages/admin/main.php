@@ -1,6 +1,6 @@
 <style>
   .classic-blink {
-    animation: blinker 1s steps(1, end) infinite;
+    /* animation: blinker 1s steps(1, end) infinite; */
   }
 
   @keyframes blinker {
