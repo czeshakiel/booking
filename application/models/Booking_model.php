@@ -55,8 +55,7 @@
             return $query->result_array();
         }
         public function getTodaysBookings($date){
-            $this->db->where('book_date',$date);
-            $query=$this->db->get('booking');
+            $query=$this->db->query("SELECT b.*,c.courtname FROM booking b INNER JOIN court c ON c.id=b.court_id WHERE b.book_date='$date' ORDER BY b.datearray ASC");
             return $query->result_array();
         }
         public function getAllCourts(){

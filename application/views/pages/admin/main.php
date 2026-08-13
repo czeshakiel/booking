@@ -66,13 +66,69 @@
                     </thead>
                     <tbody>
                         <?php foreach($todaysbooking as $booking): ?>
+                            <?php
+                            $btime=explode(";",$booking['book_time']);
+                             $c=sizeof($btime)-1;
+                             $a=$btime[0];
+                             $b=$btime[$c-1]; 
+                             $totalhrs=$c; 
+                             
+                             
+                             $querycourt=$this->Booking_model->get_court($booking['court_id']);
+
+                             if($a==$b){
+                                $query=$this->Booking_model->get_book_time($a);
+                                $booktime=$query['time_description'];                                
+                             }else{
+                                $first="";
+                                $last="";
+                                $query=$this->Booking_model->get_book_time($a);
+                                if($query) {
+                                    $qrb=explode(' - ',$query['time_description']);
+                                    $bd=$query['time_description'];                                    
+                                    $first=$qrb[0];
+                                } else {
+                                    $qrb = "";
+                                    $bd="";
+                                    $booktime="";
+                                }
+                                
+                                $query=$this->Booking_model->get_book_time($b);
+                                if($query) {
+                                    $qre=explode(' - ',$query['time_description']);
+                                    $be=$query['time_description'];
+                                    $qre=explode(' - ',$be);        
+                                    $last=$qre[1];                            
+                                } else {
+                                    $qre = "";
+                                    $be="";                                    
+                                    $booktime="";
+                                }
+                                
+                                $booktime=$first." - ".$last;
+                                
+                                
+                             }
+                             $totalamount=0;
+                             for($i=0;$i<$c;$i++){                                
+                                $query=$this->Booking_model->get_book_time($btime[$i]);
+                                if($query['time_shift']=='AM'){
+                                    $rate=$querycourt['court_rate_am'];
+                                }else{
+                                    $rate=$querycourt['court_rate_pm'];
+                                }
+                                
+                                $totalamount +=$rate;
+                             }
+                            ?>
                         <tr>
                             <td><?= $booking['booking_id']; ?></td>
                             <td><?= $booking['fullname']; ?></td>
                             <td><?= $booking['contactno']; ?></td>
-                            <td><?= $booking['court_name']; ?></td>
-                            <td></td>
-                            <td><?= ucfirst($booking['status']); ?></td>
+                            <td><?= $booking['courtname']; ?></td>
+                            <td><?=$booktime;?></td>
+                            <td><?=number_format($totalamount,2);?></td>
+                            <td><?= $booking['status']; ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

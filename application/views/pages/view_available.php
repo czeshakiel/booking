@@ -94,10 +94,12 @@ if($this->session->flashdata('failed')){
                                 }
                             }
                         }
+                        $col="blue";
                         if($bookcount>0){
                             $status="disabled";
                             $bkcolor="gray";
                             $remarks="occupied";
+                            $col="gray";
                         }
                         if(date('w',strtotime($datearray))== 5 && ($time['time_id'] >= 10 && $time['time_id'] <= 15 )){
                             $status="disabled";
@@ -112,8 +114,8 @@ if($this->session->flashdata('failed')){
                         ?>  
                            
                         <div class="col-md-3 col-sm-3 col-xs-6">
-                            <label title="" class="well top-block button-checkbox">
-                                <i class="glyphicon glyphicon-calendar blue"></i>
+                            <label title="" class="well top-block button-checkbox" style="background-color: <?=$bkcolor;?>;">
+                                <i class="glyphicon glyphicon-calendar <?=$col;?>"></i>
                                  <input type="checkbox" name="time_check[]" value="<?=$time['time_id'];?>" <?=$status;?> id="time_check" onclick="checkTimeExist()">
                                 <div><?=$time['time_description'];?></div>
                                 <div><?=$remarks;?></div>
