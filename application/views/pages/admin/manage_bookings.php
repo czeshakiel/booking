@@ -119,8 +119,8 @@ if($this->session->flashdata('error')){
                                 ?>
                                 <td>
                                     <a href="<?= base_url('view_payment/'.$item['booking_id']); ?>" class="btn btn-success btn-sm" target="_blank" <?=$view;?>>View POP</a>
-                                    <a href="<?=base_url('confirm_booking/'.$item['booking_id']);?>" class="btn btn-primary btn-sm" onclick="return confirm('Do you wish to confirm this booking?');return false;" <?=$confirm;?>> Confirm</a>
-                                    <a href="<?= base_url('cancel_bookings/'.$item['booking_id']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this booking?');" <?=$cancel;?>>Cancel</a>
+                                    <a href="<?=base_url('confirm_booking/'.$item['booking_id']."/".$id);?>" class="btn btn-primary btn-sm" onclick="return confirm('Do you wish to confirm this booking?');return false;" <?=$confirm;?>> Confirm</a>
+                                    <a href="<?= base_url('cancel_bookings/'.$item['booking_id']."/".$id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this booking?');" <?=$cancel;?>>Cancel</a>
                                 </td>
                                 <?php
                             echo "</tr>";

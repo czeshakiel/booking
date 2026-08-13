@@ -229,5 +229,9 @@
             $result=$this->db->query("SELECT * FROM booking WHERE book_date='$date' AND court_id='$court_id' AND `status`='confirmed'");
             return $result->result_array();
         }
+        public function getAllBookingByDate($date){
+            $result=$this->db->query("SELECT b.*,c.courtname FROM booking b INNER JOIN court c ON c.id=b.court_id WHERE b.book_date='$date' AND b.`status` != 'cancelled'");
+            return $result->result_array();
+        }
     }
 ?>

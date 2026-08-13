@@ -160,7 +160,7 @@ date_default_timezone_set('Asia/Manila');
             $data['document'] = $this->Booking_model->getBookingById($booking_id);            
             $this->load->view('pages/'.$page,$data);                             
         }
-        public function cancel_bookings($booking_id){
+        public function cancel_bookings($booking_id,$id){
             $result = $this->Booking_model->cancel_booking($booking_id);
             if($result){
                 $this->session->set_flashdata('success', 'Booking cancelled successfully.');                
@@ -172,17 +172,17 @@ date_default_timezone_set('Asia/Manila');
             }                   
 
             if($this->session->admin_login){
-                redirect(base_url('manage_bookings'));
+                redirect(base_url('manage_bookings/'.$id));
             }
         }
-        public function confirm_booking($booking_id){
+        public function confirm_booking($booking_id,$id){
             $result = $this->Booking_model->confirm_booking($booking_id);
             if($result){
                 $this->session->set_flashdata('success', 'Booking confirmed successfully.');                
             } else {
                 $this->session->set_flashdata('error', 'Failed to confirm booking.');                
             }
-            redirect(base_url('manage_bookings'));            
+            redirect(base_url('manage_bookings/'.$id));            
         }
         //===============================User Module=========================================
         //===============================Admin Module=========================================
@@ -224,6 +224,13 @@ date_default_timezone_set('Asia/Manila');
             $data['pendingbooking'] = $this->Booking_model->getBookingStatus('pending');
             $data['cancelledbooking'] = $this->Booking_model->getBookingStatus('cancelled');
             $data['todaysbooking'] = $this->Booking_model->getTodaysBookings(date('Y-m-d'));
+            if($this->input->post('month')=="" && $this->input->post('year')==""){
+                $data['month'] = date('m');
+                $data['year'] = date('Y');
+            }else{
+                $data['month'] = $this->input->post('month');
+                $data['year'] = $this->input->post('year');
+            }
             $this->load->view('includes/header');            
             $this->load->view('includes/admin/navbar');
             $this->load->view('includes/admin/sidebar');
@@ -326,7 +333,7 @@ date_default_timezone_set('Asia/Manila');
             $this->load->view('includes/admin/modal');
             $this->load->view('includes/footer'); 
         }
-        public function manage_bookings(){
+        public function manage_bookings($id){
             $page = "manage_bookings";
             if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
                 show_404();
@@ -334,7 +341,12 @@ date_default_timezone_set('Asia/Manila');
             if(!$this->session->admin_login){
                 redirect(base_url('admin'));
             }            
-            $data['bookings'] = $this->Booking_model->getAllBookings();
+            if($id=="all"){
+                $data['bookings'] = $this->Booking_model->getAllBookings();
+            }else{
+                $data['bookings'] = $this->Booking_model->getAllBookingByDate($id);
+            }
+            $data['id'] = $id;
             $this->load->view('includes/header');            
             $this->load->view('includes/admin/navbar');
             $this->load->view('includes/admin/sidebar');
