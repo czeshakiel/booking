@@ -1,6 +1,6 @@
 <style>
 .button-checkbox {
-    display: inline-block;
+   /* display: inline-block;
     padding: 12px 25px;
     background: #eeeeee;
     border: 2px solid #ccc;
@@ -10,7 +10,7 @@
     font-weight: bold;
     transition: 0.2s;
     text-align: center;
-    width: 28vw;
+    width: 28vw;*/
 }
 
 .button-checkbox input {
@@ -19,9 +19,9 @@
 
 /* Checked state */
 .button-checkbox:has(input:checked) {
-    background: #198754;
+    background: #fe72bb;
     color: white;
-    border-color: #198754;
+    border-color: #fe72bb;
 }
 </style>
 <div id="content" class="col-lg-10 col-sm-10">
@@ -50,7 +50,7 @@ if($this->session->flashdata('failed')){
             <div class="box-header well">
                 <h2><i class="glyphicon glyphicon-calendar"></i> Schedule Details</h2>                
             </div>
-            <div class="box-content"> 
+            <div class="box-content">                 
                 <form name="viewavailable" action="<?=base_url('search_view_available');?>" method="post">    
                     <input type="hidden" name="datearray" value="<?=$datearray;?>">         
                     <div class="form-group">                        
@@ -72,6 +72,11 @@ if($this->session->flashdata('failed')){
                 <form name="checkavailable" action="<?=base_url('save_booking');?>" method="post" id="myTimeForm">
                     <input type="hidden" name="datearray" value="<?=$datearray;?>">
                     <input type="hidden" name="court_id" value="<?=$selected_court['id'];?>">
+                    
+                    <div class="form-group" style="margin-left:2%;">                      
+                            <input type="submit" class="btn btn-primary" value="Book Selected Time" id="btnSaveTime" disabled/>
+                    </div>
+                    
                     <?php foreach($timesettings as $time): ?>
                         <?php 
                         $status="";
@@ -104,14 +109,24 @@ if($this->session->flashdata('failed')){
                             $remarks="Not Available";
                         }
 
-                        ?>
-                        <label class="button-checkbox" style="background-color: <?=$bkcolor;?>;">
+                        ?>  
+                           
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <label title="" class="well top-block button-checkbox">
+                                <i class="glyphicon glyphicon-calendar blue"></i>
+                                 <input type="checkbox" name="time_check[]" value="<?=$time['time_id'];?>" <?=$status;?> id="time_check" onclick="checkTimeExist()">
+                                <div><?=$time['time_description'];?></div>
+                                <div><?=$remarks;?></div>
+                                
+                            </label>
+                        </div>                   
+                        <!-- <label class="button-checkbox" style="background-color: <?=$bkcolor;?>;">
                             <input type="checkbox" name="time_check[]" value="<?=$time['time_id'];?>" <?=$status;?> id="time_check" onclick="checkTimeExist()">
                             <?=$time['time_description'];?><br><?=$remarks;?>
-                        </label>
+                        </label> -->
                     <?php endforeach; ?>
-                    <div class="form-group">                        
-                        <input type="submit" class="btn btn-primary" value="Book Selected Time" id="btnSaveTime" disabled/>
+                    <div class="row">
+                        
                     </div>
                 </form>
                 <?php } ?>
