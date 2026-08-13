@@ -14,7 +14,7 @@
                         </li>
                         <li><a class="ajax-link" href="<?=base_url('manage_bookings/all');?>"><i class="glyphicon glyphicon-book"></i><span> Bookings</span></a>
                         </li>
-                        <!-- <li><a class="ajax-link" href="<?=base_url('manage_teacher');?>"><i class="glyphicon glyphicon-user"></i><span> Teacher</span></a></li> -->
+                        <li><a class="ajax-link" href="<?=base_url('booking_map');?>"><i class="glyphicon glyphicon-map-marker"></i><span> Booking Map</span></a></li>
                         <li><a class="ajax-link" href="<?=base_url('manage_settings');?>"><i class="glyphicon glyphicon-wrench"></i><span> Settings</span></a>
                         </li>                        
                     </ul>                    

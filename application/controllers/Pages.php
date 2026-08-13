@@ -354,6 +354,26 @@ date_default_timezone_set('Asia/Manila');
             $this->load->view('includes/admin/modal');
             $this->load->view('includes/footer'); 
         }
+        public function booking_map(){
+            $page = "booking_map";
+            if(!file_exists(APPPATH.'views/pages/admin/'.$page.".php")){
+                show_404();
+            } 
+            if(!$this->session->admin_login){
+                redirect(base_url('admin'));
+            }            
+            if($this->input->post('datearray')==""){
+                $data['datearray'] = date('Y-m-d');
+            }else{
+                $data['datearray'] = $this->input->post('datearray');                
+            }
+            $this->load->view('includes/header');            
+            $this->load->view('includes/admin/navbar');
+            $this->load->view('includes/admin/sidebar');
+            $this->load->view('pages/admin/'.$page,$data);                 
+            $this->load->view('includes/admin/modal');
+            $this->load->view('includes/footer'); 
+        }
         //===============================Admin Module=========================================
 }
 ?>
